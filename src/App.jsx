@@ -10,6 +10,7 @@ import { BlendFunction } from "postprocessing";
 import {
   CubeCamera,
   Environment,
+  Lightformer,
   OrbitControls,
   PerspectiveCamera,
 } from "@react-three/drei";
@@ -18,7 +19,8 @@ import { Ground } from "./Ground";
 import Car from "./Car";
 import { FloatingGrid } from "./FloatingGrid";
 import { Rings } from "./Rings";
-import { DirectionalLight } from "three";
+import { DirectionalLight, PointLight, PointLightHelper } from "three";
+import * as THREE from "three";
 
 function CarShow() {
   return (
@@ -28,15 +30,17 @@ function CarShow() {
       <PerspectiveCamera makeDefault fov={50} position={[3, 2, 5]} />
 
       <color args={["black"]} attach="background" />
-      <Car />
+      
 
-      <CubeCamera resolution={256} frames={Infinity}>
+      <CubeCamera resolution={512} frames={Infinity}>
         {(texture) => (
           <>
-            <Environment map={texture} />
+            <Environment map={texture} resolution={512} />
+            <Car />
           </>
         )}
       </CubeCamera>
+      <hemisphereLight intensity={0.7} />
 
       <spotLight
         color={[1, 0.25, 0.7]}
@@ -47,6 +51,14 @@ function CarShow() {
         castShadow
         shadow-bias={-0.0001}
       />
+      <spotLight
+        color={[1, 1, 1]}
+        intensity={10}
+        position={[0, 7, 0]}
+        castShadow
+        shadow-bias={-0.0001}
+      />
+
       <spotLight
         color={[0.14, 0.5, 1]}
         intensity={2}
@@ -59,6 +71,7 @@ function CarShow() {
       <Ground />
       <FloatingGrid />
       <Rings />
+      
 
       <EffectComposer>
         {/* <DepthOfField focusDistance={0.0035} focalLength={0.01} bokehScale={3} height={480} /> */}
@@ -86,7 +99,11 @@ function App() {
       <Canvas shadows gl={(renderer) => {
         renderer.useLegacyLights = false; 
         return renderer;
-      }}>
+      }}
+      onCreated={({ scene }) => {
+          scene.fog = new THREE.FogExp2('black', 0.07);
+        }}
+      >
         <CarShow />
       </Canvas>
     </Suspense>

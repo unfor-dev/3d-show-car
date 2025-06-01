@@ -1,8 +1,17 @@
-import React, { useRef } from 'react'
-import { useGLTF } from '@react-three/drei'
+import React, { useEffect, useRef } from 'react'
+import { MeshTransmissionMaterial, useGLTF } from '@react-three/drei'
+import { useFrame } from '@react-three/fiber';
 
 export default function Car(props) {
-  const { nodes, materials } = useGLTF('/mersedes.glb')
+  const { nodes, scene, materials } = useGLTF('/mersedes.glb')
+
+  const wheelNames = [
+    "Object_364", "Object_356", "Object_348", "Object_340",
+    "Object_334", "Object_335", "Object_342", "Object_343",
+    "Object_358", "Object_359", "Object_350", "Object_351"
+  ]
+
+
   return (
     <group {...props} dispose={null}>
       <group name="Sketchfab_Scene">
@@ -16,14 +25,16 @@ export default function Car(props) {
                   receiveShadow
                   geometry={nodes.Object_4.geometry}
                   material={materials.TwiXeR_W223_glass_int}
-                />
+                >
+                </mesh>
                 <mesh
                   name="Object_5"
                   castShadow
                   receiveShadow
                   geometry={nodes.Object_5.geometry}
                   material={materials.TwiXeR_W223_glass_windshield_tint}
-                />
+                >
+                </mesh>
               </group>
               <group name="TwiXeR_W223_trunk_antichrome_1">
                 <mesh
@@ -93,15 +104,31 @@ export default function Car(props) {
                   castShadow
                   receiveShadow
                   geometry={nodes.Object_18.geometry}
-                  material={materials.TwiXeR_W223_taillight_red}
-                />
+                  // material={materials.TwiXeR_W223_taillight_red}
+                >
+                  <meshPhysicalMaterial 
+                    emissive="red"      // Yorqinroq ko'rinish
+                    emissiveIntensity={20} // 0.5 - o'rta darajada yorqin
+                    roughness={0.01}       // Biroz yaltiroq
+                    ior={0.2}
+                    metalness={1}       // Metallga yaqin effekt
+                  />
+                </mesh>
                 <mesh
                   name="Object_19"
                   castShadow
                   receiveShadow
                   geometry={nodes.Object_19.geometry}
-                  material={materials.TwiXeR_W223_rearlight_running_glass}
-                />
+                  // material={materials.TwiXeR_W223_rearlight_running_glass}
+                >
+                  <meshPhysicalMaterial 
+                    emissive="red"      // Yorqinroq ko'rinish
+                    emissiveIntensity={10} // 0.5 - o'rta darajada yorqin
+                    roughness={0.01}       // Biroz yaltiroq
+                    ior={0.2}
+                    metalness={1}       // Metallga yaqin effekt
+                  />
+                </mesh>
                 <mesh
                   name="Object_20"
                   castShadow
@@ -176,15 +203,31 @@ export default function Car(props) {
                   castShadow
                   receiveShadow
                   geometry={nodes.Object_32.geometry}
-                  material={materials.TwiXeR_W223_taillight_red}
-                />
+                  // material={materials.TwiXeR_W223_taillight_red}
+                >
+                  <meshPhysicalMaterial 
+                    emissive="red"      // Yorqinroq ko'rinish
+                    emissiveIntensity={20} // 0.5 - o'rta darajada yorqin
+                    roughness={0.01}       // Biroz yaltiroq
+                    ior={0.2}
+                    metalness={1}       // Metallga yaqin effekt
+                  />
+                </mesh>
                 <mesh
                   name="Object_33"
                   castShadow
                   receiveShadow
                   geometry={nodes.Object_33.geometry}
-                  material={materials.TwiXeR_W223_rearlight_running_glass}
-                />
+                  // material={materials.TwiXeR_W223_rearlight_running_glass}
+                >
+                  <meshPhysicalMaterial 
+                    emissive="red"      // Yorqinroq ko'rinish
+                    emissiveIntensity={10} // 0.5 - o'rta darajada yorqin
+                    roughness={0.01}       // Biroz yaltiroq
+                    ior={0.2}
+                    metalness={1}       // Metallga yaqin effekt
+                  />
+                </mesh>
                 <mesh
                   name="Object_34"
                   castShadow
@@ -611,7 +654,8 @@ export default function Car(props) {
                   receiveShadow
                   geometry={nodes.Object_104.geometry}
                   material={materials.TwiXeR_W223}
-                />
+                >
+                </mesh>
               </group>
               <group name="TwiXeR_W223_headlight_R_22">
                 <mesh
@@ -633,8 +677,16 @@ export default function Car(props) {
                   castShadow
                   receiveShadow
                   geometry={nodes.Object_108.geometry}
-                  material={materials.TwiXeR_W223_highbeam}
-                />
+                  // material={materials.TwiXeR_W223_highbeam}
+                >
+                  <meshPhysicalMaterial 
+                    emissive="red"      // Yorqinroq ko'rinish
+                    emissiveIntensity={10} // 0.5 - o'rta darajada yorqin
+                    roughness={0.01}       // Biroz yaltiroq
+                    ior={1.2}
+                    metalness={0.1}       // Metallga yaqin effekt
+                  />
+                </mesh>
                 <mesh
                   name="Object_109"
                   castShadow
@@ -705,8 +757,16 @@ export default function Car(props) {
                   castShadow
                   receiveShadow
                   geometry={nodes.Object_116.geometry}
-                  material={materials.TwiXeR_W223_highbeam}
-                />
+                  // material={materials.TwiXeR_W223_highbeam}
+                >
+                  <meshPhysicalMaterial 
+                    emissive="red"      // Yorqinroq ko'rinish
+                    emissiveIntensity={10} // 0.5 - o'rta darajada yorqin
+                    roughness={0.01}       // Biroz yaltiroq
+                    ior={1.2}
+                    metalness={0.1}       // Metallga yaqin effekt
+                  />
+                </mesh>
                 <mesh
                   name="Object_117"
                   castShadow
@@ -719,22 +779,44 @@ export default function Car(props) {
                   castShadow
                   receiveShadow
                   geometry={nodes.Object_118.geometry}
-                  material={materials.TwiXeR_W223_bumper_grille}
-                />
+                  // material={materials.TwiXeR_W223_bumper_grille}
+                >
+                  <meshPhysicalMaterial 
+                    emissive="red"      // Yorqinroq ko'rinish
+                    emissiveIntensity={0.1} // 0.5 - o'rta darajada yorqin
+                    roughness={10}       // Biroz yaltiroq
+                    metalness={1}       // Metallga yaqin effekt
+                  />
+                </mesh>
                 <mesh
                   name="Object_119"
                   castShadow
                   receiveShadow
                   geometry={nodes.Object_119.geometry}
-                  material={materials.TwiXeR_W223_rearlight_running_6}
+                  // material={materials.TwiXeR_W223_rearlight_running_6}
+                >
+                  <meshPhysicalMaterial 
+                  emissive="white"      // Yorqinroq ko'rinish
+                  emissiveIntensity={7} // 0.5 - o'rta darajada yorqin
+                  roughness={10}       // Biroz yaltiroq
+                  metalness={10}       // Metallga yaqin effekt
                 />
+                </mesh>
                 <mesh
                   name="Object_120"
                   castShadow
                   receiveShadow
                   geometry={nodes.Object_120.geometry}
-                  material={materials.TwiXeR_W223_rearlight_running_6}
+                  // material={materials.TwiXeR_W223_rearlight_running_6}
+                >
+                  <meshPhysicalMaterial 
+                  color="white"
+                  emissive="white"      // Yorqinroq ko'rinish
+                  emissiveIntensity={10} // 0.5 - o'rta darajada yorqin
+                  roughness={10}       // Biroz yaltiroq
+                  metalness={10}       // Metallga yaqin effekt
                 />
+                </mesh>
               </group>
               <group name="TwiXeR_W223_headlight_glass_R_24">
                 <mesh
@@ -1356,15 +1438,31 @@ export default function Car(props) {
                   castShadow
                   receiveShadow
                   geometry={nodes.Object_224.geometry}
-                  material={materials.TwiXeR_W223_taillight_red}
-                />
+                  // material={materials.TwiXeR_W223_taillight_red}
+                >
+                  <meshPhysicalMaterial 
+                    emissive="red"      // Yorqinroq ko'rinish
+                    emissiveIntensity={2} // 0.5 - o'rta darajada yorqin
+                    roughness={0.01}       // Biroz yaltiroq
+                    ior={0.2}
+                    metalness={1}       // Metallga yaqin effekt
+                  />
+                </mesh>
                 <mesh
                   name="Object_225"
                   castShadow
                   receiveShadow
                   geometry={nodes.Object_225.geometry}
-                  material={materials.TwiXeR_W223_rearlight_running_glass}
-                />
+                  // material={materials.TwiXeR_W223_rearlight_running_glass}
+                >
+                  <meshPhysicalMaterial 
+                    emissive="red"      // Yorqinroq ko'rinish
+                    emissiveIntensity={2} // 0.5 - o'rta darajada yorqin
+                    roughness={0.01}       // Biroz yaltiroq
+                    ior={0.2}
+                    metalness={1}       // Metallga yaqin effekt
+                  />
+                </mesh>
                 <mesh
                   name="Object_226"
                   castShadow
@@ -1467,8 +1565,16 @@ export default function Car(props) {
                   castShadow
                   receiveShadow
                   geometry={nodes.Object_242.geometry}
-                  material={materials.TwiXeR_W223_brabus_black}
-                />
+                  // material={materials.TwiXeR_W223_brabus_black}
+                >
+                  <meshPhysicalMaterial 
+                    emissive="white"      // Yorqinroq ko'rinish
+                    emissiveIntensity={2} // 0.5 - o'rta darajada yorqin
+                    roughness={0.01}       // Biroz yaltiroq
+                    ior={0.2}
+                    metalness={1}       // Metallga yaqin effekt
+                  />
+                </mesh>
                 <mesh
                   name="Object_243"
                   castShadow
@@ -1484,7 +1590,8 @@ export default function Car(props) {
                   receiveShadow
                   geometry={nodes.Object_245.geometry}
                   material={materials.TwiXeR_W223_brabus_black}
-                />
+                >
+                </mesh>
                 <mesh
                   name="Object_246"
                   castShadow
@@ -1970,8 +2077,15 @@ export default function Car(props) {
                   castShadow
                   receiveShadow
                   geometry={nodes.Object_334.geometry}
-                  material={materials['TwiXeR_W223_rim_black.001']}
+                  // material={materials['TwiXeR_W223_rim_black.001']}
+                >
+                  <meshPhysicalMaterial 
+                  emissive="black"      // Yorqinroq ko'rinish
+                  emissiveIntensity={5} // 0.5 - o'rta darajada yorqin
+                  roughness={0.1}       // Biroz yaltiroq
+                  metalness={1.5}       // Metallga yaqin effekt
                 />
+                </mesh>
                 <mesh
                   name="Object_335"
                   castShadow
@@ -2004,8 +2118,15 @@ export default function Car(props) {
                   castShadow
                   receiveShadow
                   geometry={nodes.Object_339.geometry}
-                  material={materials['amdb11_caliper.002']}
+                  // material={materials['amdb11_caliper.002']}
+                >
+                  <meshPhysicalMaterial 
+                  emissive="red"      // Yorqinroq ko'rinish
+                  emissiveIntensity={1} // 0.5 - o'rta darajada yorqin
+                  roughness={0.01}       // Biroz yaltiroq
+                  metalness={1}       // Metallga yaqin effekt
                 />
+                </mesh>
                 <mesh
                   name="Object_340"
                   castShadow
@@ -2023,8 +2144,15 @@ export default function Car(props) {
                   castShadow
                   receiveShadow
                   geometry={nodes.Object_342.geometry}
-                  material={materials['TwiXeR_W223_rim_black.001']}
+                  // material={materials['TwiXeR_W223_rim_black.001']}
+                >
+                  <meshPhysicalMaterial 
+                  emissive="black"      // Yorqinroq ko'rinish
+                  emissiveIntensity={5} // 0.5 - o'rta darajada yorqin
+                  roughness={0.1}       // Biroz yaltiroq
+                  metalness={1.5}       // Metallga yaqin effekt
                 />
+                </mesh>
                 <mesh
                   name="Object_343"
                   castShadow
@@ -2057,8 +2185,15 @@ export default function Car(props) {
                   castShadow
                   receiveShadow
                   geometry={nodes.Object_347.geometry}
-                  material={materials['amdb11_caliper.002']}
+                  // material={materials['amdb11_caliper.002']}
+                >
+                  <meshPhysicalMaterial 
+                  emissive="red"      // Yorqinroq ko'rinish
+                  emissiveIntensity={1} // 0.5 - o'rta darajada yorqin
+                  roughness={0.01}       // Biroz yaltiroq
+                  metalness={1}       // Metallga yaqin effekt
                 />
+                </mesh>
                 <mesh
                   name="Object_348"
                   castShadow
@@ -2076,8 +2211,15 @@ export default function Car(props) {
                   castShadow
                   receiveShadow
                   geometry={nodes.Object_350.geometry}
-                  material={materials['TwiXeR_W223_rim_black.001']}
+                  // material={materials['TwiXeR_W223_rim_black.001']}
+                >
+                  <meshPhysicalMaterial 
+                  emissive="black"      // Yorqinroq ko'rinish
+                  emissiveIntensity={5} // 0.5 - o'rta darajada yorqin
+                  roughness={0.1}       // Biroz yaltiroq
+                  metalness={1.5}       // Metallga yaqin effekt
                 />
+                </mesh>
                 <mesh
                   name="Object_351"
                   castShadow
@@ -2110,8 +2252,15 @@ export default function Car(props) {
                   castShadow
                   receiveShadow
                   geometry={nodes.Object_355.geometry}
-                  material={materials['amdb11_caliper.002']}
+                  // material={materials['amdb11_caliper.002']}
+                >
+                  <meshPhysicalMaterial 
+                  emissive="red"      // Yorqinroq ko'rinish
+                  emissiveIntensity={1} // 0.5 - o'rta darajada yorqin
+                  roughness={0.01}       // Biroz yaltiroq
+                  metalness={1}       // Metallga yaqin effekt
                 />
+                </mesh>
                 <mesh
                   name="Object_356"
                   castShadow
@@ -2129,8 +2278,15 @@ export default function Car(props) {
                   castShadow
                   receiveShadow
                   geometry={nodes.Object_358.geometry}
-                  material={materials['TwiXeR_W223_rim_black.001']}
+                  // material={materials['TwiXeR_W223_rim_black.001']}
+                >
+                  <meshPhysicalMaterial 
+                  emissive="black"      // Yorqinroq ko'rinish
+                  emissiveIntensity={5} // 0.5 - o'rta darajada yorqin
+                  roughness={0.1}       // Biroz yaltiroq
+                  metalness={1.5}       // Metallga yaqin effekt
                 />
+                </mesh>
                 <mesh
                   name="Object_359"
                   castShadow
@@ -2163,15 +2319,23 @@ export default function Car(props) {
                   castShadow
                   receiveShadow
                   geometry={nodes.Object_363.geometry}
-                  material={materials['amdb11_caliper.002']}
+                  // material={materials['amdb11_caliper.002']}
+                >
+                  <meshPhysicalMaterial 
+                  emissive="red"      // Yorqinroq ko'rinish
+                  emissiveIntensity={1} // 0.5 - o'rta darajada yorqin
+                  roughness={0.01}       // Biroz yaltiroq
+                  metalness={1}       // Metallga yaqin effekt
                 />
+                </mesh>
                 <mesh
                   name="Object_364"
                   castShadow
                   receiveShadow
                   geometry={nodes.Object_364.geometry}
                   material={materials.TwiXeR_W223}
-                />
+                >
+                </mesh>
               </group>
               <group
                 name="TwiXeR_W223_steer_90"
@@ -2305,5 +2469,5 @@ export default function Car(props) {
     </group>
   )
 }
-
+      
 useGLTF.preload('/mersedes-benz_s-class_w223_brabus_850.glb')
