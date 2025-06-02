@@ -1,15 +1,29 @@
+import { useRef, useEffect } from "react";
 import { useFrame } from "@react-three/fiber";
-import { useRef } from "react";
 import { Color } from "three";
+import gsap from "gsap";
+import * as THREE from "three";
 
 export function Rings() {
   const itemsRef = useRef([]);
+  const geometryParams = useRef({ radius: 30.35 }); // gsap shu qiymatni o‘zgartiradi
+
+  // GSAP animatsiyasi faqat bir marta ishlaydi
+  useEffect(() => {
+    gsap.to(geometryParams.current, {
+      radius: 5.35,
+      duration: 15,
+      ease: "power2.out",
+    });
+  }, []);
 
   useFrame((state, delta) => {
     let elapsed = state.clock.getElapsedTime();
 
     for (let i = 0; i < itemsRef.current.length; i++) {
       let mesh = itemsRef.current[i];
+      if (!mesh) continue;
+
       let z = (i - 7) * 3.5 + ((elapsed * 0.4) % 3.5) * 2;
       let dist = Math.abs(z);
       mesh.position.set(0, 0, -z);
@@ -19,19 +33,28 @@ export function Rings() {
       if (dist > 4) {
         colorScale = 1 - (Math.min(dist, 16) - 2) / 10;
       }
-      colorScale *= 0.5;
+      colorScale *= 0.6;
 
-      if (i % 2 == 1) {
-        mesh.material.emissive = new Color(1.8, 1.6, 1.4).multiplyScalar(colorScale);
-      } else {
-        mesh.material.emissive = new Color(0.1, 0.1, 1).multiplyScalar(colorScale);
-      }
+      const emissiveColor = i % 2 === 1
+        ? new Color(1.0, 1.0, 1.0)
+        : new Color(1.1, 1.1, 1);
+
+      mesh.material.emissive = emissiveColor.multiplyScalar(colorScale);
+
+      // 💡 bu yerda geometriyani real vaqt rejimida yangilaymiz
+      const currentRadius = geometryParams.current.radius;
+      const geo = mesh.geometry;
+      geo.parameters.radius = currentRadius;
+
+      // Ishonchli usul: eski geometry'ni yo'q qilamiz va yangisini yaratamiz
+      mesh.geometry.dispose();
+      mesh.geometry = new THREE.TorusGeometry(currentRadius, 0.1, 16, 100);
     }
   });
 
   return (
     <>
-      {[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0].map((v, i) => (
+      {[...Array(14)].map((_, i) => (
         <mesh
           castShadow
           receiveShadow
@@ -39,8 +62,8 @@ export function Rings() {
           key={i}
           ref={(el) => (itemsRef.current[i] = el)}
         >
-          <torusGeometry args={[3.35, 0.05, 16, 100]} />
-          <meshStandardMaterial emissive={[4, 0.1, 0.4]} color={[0, 0, 0]} />
+          <torusGeometry args={[30.35, 0.1, 16, 100]} />
+          <meshStandardMaterial emissive={[4, 0.1, 0.4]} color={[1, 1, 1]} />
         </mesh>
       ))}
     </>

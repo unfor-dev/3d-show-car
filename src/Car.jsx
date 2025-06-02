@@ -1,16 +1,15 @@
 import React, { useEffect, useRef } from 'react'
-import { MeshTransmissionMaterial, useGLTF } from '@react-three/drei'
-import { useFrame } from '@react-three/fiber';
+import { useGLTF } from '@react-three/drei'
+import { useFrame } from '@react-three/fiber'
 
 export default function Car(props) {
-  const { nodes, scene, materials } = useGLTF('/mersedes.glb')
+  const { nodes, materials, scene } = useGLTF('/mersedes.glb', true)
 
   const wheelNames = [
     "Object_364", "Object_356", "Object_348", "Object_340",
     "Object_334", "Object_335", "Object_342", "Object_343",
     "Object_358", "Object_359", "Object_350", "Object_351"
   ]
-
 
   return (
     <group {...props} dispose={null}>
@@ -441,8 +440,15 @@ export default function Car(props) {
                   castShadow
                   receiveShadow
                   geometry={nodes.Object_68.geometry}
-                  material={materials.TwiXeR_W223_speakers_1}
-                />
+                  // material={materials.TwiXeR_W223_speakers_1}
+                >
+                  <meshPhysicalMaterial 
+                    emissive="white"      // Yorqinroq ko'rinish
+                    emissiveIntensity={0.7} // 0.5 - o'rta darajada yorqin
+                    roughness={1}       // Biroz yaltiroq
+                    metalness={0.1}       // Metallga yaqin effekt */}
+                  />
+                </mesh>
                 <mesh
                   name="Object_69"
                   castShadow
@@ -499,8 +505,15 @@ export default function Car(props) {
                   castShadow
                   receiveShadow
                   geometry={nodes.Object_77.geometry}
-                  material={materials.TwiXeR_W223_speakers_1}
-                />
+                  // material={materials.TwiXeR_W223_speakers_1}
+                >
+                  <meshPhysicalMaterial 
+                    emissive="white"      // Yorqinroq ko'rinish
+                    emissiveIntensity={0.7} // 0.5 - o'rta darajada yorqin
+                    roughness={1}       // Biroz yaltiroq
+                    metalness={0.1}       // Metallga yaqin effekt
+                  />
+                </mesh>
                 <mesh
                   name="Object_78"
                   castShadow
@@ -680,7 +693,7 @@ export default function Car(props) {
                   // material={materials.TwiXeR_W223_highbeam}
                 >
                   <meshPhysicalMaterial 
-                    emissive="red"      // Yorqinroq ko'rinish
+                    emissive="white"      // Yorqinroq ko'rinish
                     emissiveIntensity={10} // 0.5 - o'rta darajada yorqin
                     roughness={0.01}       // Biroz yaltiroq
                     ior={1.2}
@@ -702,9 +715,9 @@ export default function Car(props) {
                   // material={materials.TwiXeR_W223_bumper_grille}
                 >
                   <meshPhysicalMaterial 
-                    emissive="red"      // Yorqinroq ko'rinish
+                    emissive="black"      // Yorqinroq ko'rinish
                     emissiveIntensity={0.1} // 0.5 - o'rta darajada yorqin
-                    roughness={10}       // Biroz yaltiroq
+                    roughness={1}       // Biroz yaltiroq
                     metalness={1}       // Metallga yaqin effekt
                   />
                 </mesh>
@@ -717,9 +730,9 @@ export default function Car(props) {
                 >
                   <meshPhysicalMaterial 
                   emissive="white"      // Yorqinroq ko'rinish
-                  emissiveIntensity={7} // 0.5 - o'rta darajada yorqin
-                  roughness={10}       // Biroz yaltiroq
-                  metalness={10}       // Metallga yaqin effekt
+                  emissiveIntensity={3} // 0.5 - o'rta darajada yorqin
+                  roughness={1}       // Biroz yaltiroq
+                  metalness={1}       // Metallga yaqin effekt
                 />
                 </mesh>
                 <mesh
@@ -760,11 +773,11 @@ export default function Car(props) {
                   // material={materials.TwiXeR_W223_highbeam}
                 >
                   <meshPhysicalMaterial 
-                    emissive="red"      // Yorqinroq ko'rinish
+                    emissive="white"      // Yorqinroq ko'rinish
                     emissiveIntensity={10} // 0.5 - o'rta darajada yorqin
                     roughness={0.01}       // Biroz yaltiroq
                     ior={1.2}
-                    metalness={0.1}       // Metallga yaqin effekt
+                    metalness={0.1}       // Metallga yaqin effekt   // Metallga yaqin effekt
                   />
                 </mesh>
                 <mesh
@@ -782,10 +795,10 @@ export default function Car(props) {
                   // material={materials.TwiXeR_W223_bumper_grille}
                 >
                   <meshPhysicalMaterial 
-                    emissive="red"      // Yorqinroq ko'rinish
+                    emissive="black"      // Yorqinroq ko'rinish
                     emissiveIntensity={0.1} // 0.5 - o'rta darajada yorqin
-                    roughness={10}       // Biroz yaltiroq
-                    metalness={1}       // Metallga yaqin effekt
+                    roughness={1}       // Biroz yaltiroq
+                    metalness={1}      // Metallga yaqin effekt
                   />
                 </mesh>
                 <mesh
@@ -797,9 +810,9 @@ export default function Car(props) {
                 >
                   <meshPhysicalMaterial 
                   emissive="white"      // Yorqinroq ko'rinish
-                  emissiveIntensity={7} // 0.5 - o'rta darajada yorqin
-                  roughness={10}       // Biroz yaltiroq
-                  metalness={10}       // Metallga yaqin effekt
+                  emissiveIntensity={3} // 0.5 - o'rta darajada yorqin
+                  roughness={1}       // Biroz yaltiroq
+                  metalness={1}       // Metallga yaqin effekt    // Metallga yaqin effekt
                 />
                 </mesh>
                 <mesh
@@ -814,7 +827,7 @@ export default function Car(props) {
                   emissive="white"      // Yorqinroq ko'rinish
                   emissiveIntensity={10} // 0.5 - o'rta darajada yorqin
                   roughness={10}       // Biroz yaltiroq
-                  metalness={10}       // Metallga yaqin effekt
+                  metalness={10}      // Metallga yaqin effekt
                 />
                 </mesh>
               </group>
@@ -825,7 +838,8 @@ export default function Car(props) {
                   receiveShadow
                   geometry={nodes.Object_122.geometry}
                   material={materials.TwiXeR_W223_glass}
-                />
+                >
+                </mesh>
               </group>
               <group name="TwiXeR_W223_headlight_glass_L_25">
                 <mesh
@@ -1569,7 +1583,7 @@ export default function Car(props) {
                 >
                   <meshPhysicalMaterial 
                     emissive="white"      // Yorqinroq ko'rinish
-                    emissiveIntensity={2} // 0.5 - o'rta darajada yorqin
+                    emissiveIntensity={0.8} // 0.5 - o'rta darajada yorqin
                     roughness={0.01}       // Biroz yaltiroq
                     ior={0.2}
                     metalness={1}       // Metallga yaqin effekt
@@ -2374,15 +2388,29 @@ export default function Car(props) {
                   castShadow
                   receiveShadow
                   geometry={nodes.Object_370.geometry}
-                  material={materials['TwiXeR_W223_interior_chrome.001']}
-                />
+                  // material={materials['TwiXeR_W223_interior_chrome.001']}
+                >
+                  <meshPhysicalMaterial 
+                    emissive="white"      // Yorqinroq ko'rinish
+                    emissiveIntensity={0.5} // 0.5 - o'rta darajada yorqin
+                    roughness={0.1}       // Biroz yaltiroq
+                    metalness={1}       // Metallga yaqin effekt
+                  />
+                </mesh>
                 <mesh
                   name="Object_371"
                   castShadow
                   receiveShadow
                   geometry={nodes.Object_371.geometry}
-                  material={materials.TwiXeR_W223_speakers_1}
-                />
+                  // material={materials.TwiXeR_W223_speakers_1}
+                >
+                  <meshPhysicalMaterial 
+                    emissive="black"      // Yorqinroq ko'rinish
+                    emissiveIntensity={1} // 0.5 - o'rta darajada yorqin
+                    roughness={10}       // Biroz yaltiroq
+                    metalness={0.1}       // Metallga yaqin effekt
+                  />
+                </mesh>
               </group>
               <group name="TwiXeR_W223_shifter_A_91" position={[0.352, 0.916, 0.562]}>
                 <mesh
